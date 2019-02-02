@@ -65,3 +65,5 @@ gem 'bootstrap'
 gem'jquery-rails'
 
 gem 'chart-js-rails'
+
+gem 'gon'
