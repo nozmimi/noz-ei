@@ -1,5 +1,6 @@
 function getData_StatsData(db_data,tableTitle,tableData){
   var data = db_data;
+    console.log(data);
   var colName = ["11","12","16","19"];
   for(i=0; i<colName.length; i++){
     console.log(colName[i]);

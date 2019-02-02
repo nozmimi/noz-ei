@@ -6,8 +6,16 @@ QUARTERLY = "四半期"
 MONTHLY = "月"
   
   def index
-    get_data_gdp("0003109767",FISCAL_YEAR)  #国民経済計算（実質年度）
+    get_data_gdp("0003109786",CALENDAR_YEAR)  #国民経済計算（暦年＿名目）
+    get_data_gdp("0003109751",CALENDAR_YEAR)  #国民経済計算（暦年＿実質）
     
+    get_data_gdp("0003109742",FISCAL_YEAR)  #国民経済計算（年度＿名目）
+    get_data_gdp("0003109767",FISCAL_YEAR)  #国民経済計算（年度＿実質）
+
+    get_data_gdp("0003109741",QUARTERLY)  #国民経済計算（四半期＿名目）
+    get_data_gdp("0003109785",QUARTERLY)  #国民経済計算（四半期＿名目＿季節調整）
+    get_data_gdp("0003109766",QUARTERLY)  #国民経済計算（四半期＿実質）
+    get_data_gdp("0003109750",QUARTERLY)  #国民経済計算（四半期＿実質＿季節調整）
   end
 
   def show
