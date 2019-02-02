@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NozEi</title>
+    <title>NozStats</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
   <body>
-    <div class="container mt-2">
+    <nav class="navbar navbar-dark bg-blue">
+      <a class=navbar-brand nav-a" href="#">
+        <img src="/top_icon.png" class="d-inline-block align-top nav-img" alt="top-icon">
+      </a>
+      <a href="show">テスト用</a>
+    </nav>
+    
+    <div class="container mt-3">
       <%= yield %>
     </div>
   </body>
