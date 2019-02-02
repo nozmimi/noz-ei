@@ -58,46 +58,48 @@ MONTHLY = "月"
 
 
     db_catlist = CategoryList.all
-    # if db_catlist.count == 0
-      db_catlist.create(category_code:stats_title[:@id], category_name:stats_title[:STAT_NAME][:"$"] ,data_update_date:update_date)
-    # end
-    
+    if db_catlist.count == 0 or db_catlist.find_by(category_code: stats_title[:@id]) == nil
+      db_catlist.create(category_code:stats_title[:@id], category_name:stats_title[:STAT_NAME][:"$"] ,category_update_date:update_date)
+    elsif db_catlist.find_by(category_code: stats_title[:@id]) != update_date
+        db_catlist.update(category_code:stats_title[:@id], category_name:stats_title[:STAT_NAME][:"$"] ,category_update_date:update_date)
+    end
+        
     db_sna = SystemOfNationalAccount.all
-    if  0 == db_sna.count
-      classobj_time = {}
-      classobj_cat = {}
-
-      data_classobj.each do |obj|
-        case obj[:@id] 
-        when "time" then
-          data_classobj_time = obj[:CLASS]
-          # pp data_classobj_time
-            data_classobj_time.each do |obj_time|
-              classobj_time[obj_time[:@code]] = obj_time[:@name]
-            end
-        when "cat01" then
-          data_classobj_cat = obj[:CLASS]
-          # pp data_classobj_cat
-            data_classobj_cat.each do  |obj_cat|
-              classobj_cat[obj_cat[:@code]] = obj_cat[:@name]
-            end
+    if db_catlist.find_by(category_code: stats_title[:@id]).category_update_date != db_sna[db_sna.count-1].update_date
+    
+        classobj_time = {}
+        classobj_cat = {}
+  
+        data_classobj.each do |obj|
+          case obj[:@id] 
+          when "time" then
+            data_classobj_time = obj[:CLASS]
+            # pp data_classobj_time
+              data_classobj_time.each do |obj_time|
+                classobj_time[obj_time[:@code]] = obj_time[:@name]
+              end
+          when "cat01" then
+            data_classobj_cat = obj[:CLASS]
+            # pp data_classobj_cat
+              data_classobj_cat.each do  |obj_cat|
+                classobj_cat[obj_cat[:@code]] = obj_cat[:@name]
+              end
+          end
+        end
+        
+        data_datainf[:VALUE].each do |data_inf|
+          db_sna.create(
+            category_code:data_inf[:@cat01], 
+            category_name:classobj_cat[data_inf[:@cat01]],           
+            date_code:data_inf[:@time], 
+            date_name:classobj_time[data_inf[:@time]], 
+            amount:data_inf[:"$"], 
+            unit:data_inf[:@unit],
+            period_time:total_unit,
+            update_date:update_date
+            )
         end
       end
-      
-      data_datainf[:VALUE].each do |data_inf|
-        db_sna.create(
-          category_code:data_inf[:@cat01], 
-          category_name:classobj_cat[data_inf[:@cat01]],           
-          date_code:data_inf[:@time], 
-          date_name:classobj_time[data_inf[:@time]], 
-          amount:data_inf[:"$"], 
-          unit:data_inf[:@unit],
-          period_time:total_unit,
-          update_date:update_date
-          )
-        #  )
-      end
-    end
   end
   
   #（メモ）e-statのAPIアドレスを作成するメソッド
