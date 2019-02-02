@@ -1,0 +1,21 @@
+<h2>カテゴリーリスト</h2>
+<% @CL.each do |data| %>
+<%= data.category_code %>
+<%= data.category_name %>
+<%= data.data_update_date %>
+<hr>
+<% end %>
+
+<h2>GDP</h2>
+<% @SOA.each do |data| %>
+<%= data.category_code %>
+<%= data.category_name %>
+<%= data.date_code %>
+<%= data.date_name %>
+<%= data.amount %>
+<%= data.unit %>
+<%= data.period_time %>
+<%= data.update_date %>
+<hr>
+<% end %>
+<br></br>
