@@ -1,0 +1,2 @@
+class SystemOfNationalAccount < ApplicationRecord
+end
